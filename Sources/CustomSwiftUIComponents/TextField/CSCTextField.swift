@@ -29,8 +29,7 @@ public struct CSCTextFieldConfig {
         cornerRadius: CGFloat = 12,
         borderColor: Color = .gray,
         borderWidth: CGFloat = 2,
-        padding: CGFloat = 12
-    ) {
+        padding: CGFloat = 12) {
         self.font = font
         self.textColor = textColor
         self.placeholderColor = placeholderColor
@@ -38,14 +37,6 @@ public struct CSCTextFieldConfig {
         self.borderColor = borderColor
         self.borderWidth = borderWidth
         self.padding = padding
-    }
-
-    func getBorderColor(for state: CSCTextFieldState) -> Color {
-        switch state {
-            case .unknown: .gray
-            case .valid: .green
-            case .invalid: .red
-        }
     }
 }
 
@@ -113,7 +104,7 @@ public struct CSCTextField: View {
     }
 
     public var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: config.padding) {
             if let labelText = labelText, !labelText.isEmpty {
                 Text(labelText)
                     .font(config.font)
@@ -194,6 +185,7 @@ public struct CSCTextField: View {
 #Preview {
     @Previewable @State var firstName: String = ""
     @Previewable @State var lastName: String = ""
+    @Previewable @State var middleName: String = ""
 
     ScrollView {
         CSCTextField(
@@ -215,7 +207,9 @@ public struct CSCTextField: View {
             textValue: $lastName,
             labelText: "Last name",
             placeholderText: "Enter",
-            systemImageName: "calendar") { value in
+            systemImageName: "calendar",
+            iconPosition: .leading
+        ) { value in
                 if value.isEmpty {
                     return .invalid(errorMessage: "Value should be non-empty")
                 } else if value.count <= 3 {
@@ -225,7 +219,12 @@ public struct CSCTextField: View {
                 }
                 return .valid
             }
-        
+
+        CSCTextField(
+            textValue: $middleName,
+            labelText: "Middle name (Optional)"
+        )
+
         Form {
             Button {
                 
