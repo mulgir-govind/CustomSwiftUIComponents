@@ -42,7 +42,7 @@ enum Appearance: Int, CSCSelectableOption, CaseIterable {
     var optionText: String {
         switch self {
         case .light:
-            "Light sdfsd sd fs dfsd fs df sdf s dfs df sdf s dfs d"
+            "Light"
         case .dark:
             "Dark"
         }

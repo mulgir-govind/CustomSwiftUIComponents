@@ -32,21 +32,18 @@ public struct CSCRadioGroupView<Option: CSCSelectableOption>: View {
     }
 
     public var body: some View {
-        ScrollView(scrollViewAxis, showsIndicators: false) {
-            VStack(alignment: .leading, spacing: style.optionSpacig) {
-                Text(labelText)
-                    .font(style.labelFont)
-                    .foregroundStyle(style.labelColor)
+        VStack(alignment: .leading, spacing: style.optionSpacig) {
+            Text(labelText)
+                .font(style.labelFont)
+                .foregroundStyle(style.labelColor)
 
-                selectedLayout {
-                    ForEach(options) { option in
-                        CSCRadioGroupOptionView(
-                            option: option,
-                            selectedOption: $selectedOption,
-                            style: style
-                        )
-                        .frame(width: style.optionMaxWidth)
-                    }
+            selectedLayout {
+                ForEach(options) { option in
+                    CSCRadioGroupOptionView(
+                        option: option,
+                        selectedOption: $selectedOption,
+                        style: style
+                    )
                 }
             }
         }
@@ -61,7 +58,7 @@ public struct CSCRadioGroupView<Option: CSCSelectableOption>: View {
             labelText: "Select your gender",
             options: Gender.allCases,
             selectedOption: $gender,
-            style: CSCRadioGroupStyle(layoutType: .horizontal)
+            style: CSCRadioGroupStyle(layoutType: .vertical)
         )
 
         Divider()
@@ -71,12 +68,10 @@ public struct CSCRadioGroupView<Option: CSCSelectableOption>: View {
             options: Appearance.allCases,
             selectedOption: $theme,
             style: CSCRadioGroupStyle(
-                selectedOptionIconColor: .black,
-                selectedOptionBackgroundColor: .yellow.opacity(0.3),
-                layoutType: .vertical
+                selectedOptionIconColor: .black, selectedOptionBackgroundColor: .yellow.opacity(0.3),
+                layoutType: .horizontal
             )
         )
-        .frame(height: 200)
     }
     .padding()
 }

@@ -32,6 +32,7 @@ struct CSCRadioGroupOptionView<Option: CSCSelectableOption>: View {
             Text(option.optionText)
                 .font(style.optionFont)
                 .lineLimit(1)
+                .fixedSize(horizontal: false, vertical: true)
 
             Spacer()
         }
