@@ -31,6 +31,16 @@ public struct CSCRadioGroupView<Option: CSCSelectableOption>: View {
         }
     }
 
+    public init(labelText: String,
+                options: [Option],
+                selectedOption: Binding<Option>,
+         style: CSCRadioGroupStyle) {
+        self.labelText = labelText
+        self.options = options
+        self._selectedOption = selectedOption
+        self.style = style
+    }
+
     public var body: some View {
         VStack(alignment: .leading, spacing: style.optionSpacig) {
             Text(labelText)
