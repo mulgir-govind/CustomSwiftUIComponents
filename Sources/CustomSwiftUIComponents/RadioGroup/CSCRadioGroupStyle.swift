@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-struct CSCRadioGroupStyle {
+public struct CSCRadioGroupStyle {
     // Group label
     let labelFont: Font
     let labelColor: Color
