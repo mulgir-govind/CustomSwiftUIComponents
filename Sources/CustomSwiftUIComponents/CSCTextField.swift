@@ -153,17 +153,13 @@ public struct CSCTextField: View {
         }
         .padding(4)
         .onChange(of: isFocused, { oldValue, newValue in
-            print("GYAMA_test## focused changed")
             if !isFirstTimeFocused {
-                print("GYAMA_test## firt time execution")
                 runValidation()
-                isFirstTimeFocused.toggle()
             } else {
-                print("GYAMA_test## next time execution")
+                isFirstTimeFocused = false
             }
         })
         .onChange(of: textValue, { oldValue, newValue in
-            print("GYAMA_test## Value changed")
             runValidation()
         })
     }
@@ -189,10 +185,10 @@ public struct CSCTextField: View {
     }
 
     private func configWithDynamicBorder() -> CSCTextFieldConfig {
-            var updated = config
-            updated.borderColor = borderColor
-            return updated
-        }
+        var updated = config
+        updated.borderColor = borderColor
+        return updated
+    }
 }
 
 #Preview {
@@ -205,7 +201,14 @@ public struct CSCTextField: View {
             labelText: "First name",
             placeholderText: "Enter",
             systemImageName: "person.circle.fill") { value in
-                return value.isEmpty ? .invalid(errorMessage: "First name should be non-empty") : .valid
+                if value.isEmpty {
+                    return .invalid(errorMessage: "Value should be non-empty")
+                } else if value.count <= 3 {
+                    return .invalid(errorMessage: "Enter value greater than 3 charaters")
+                } else if value.count > 20 {
+                    return .invalid(errorMessage: "Enter value lower than 20 charaters")
+                }
+                return .valid
             }
 
         CSCTextField(
@@ -213,7 +216,14 @@ public struct CSCTextField: View {
             labelText: "Last name",
             placeholderText: "Enter",
             systemImageName: "calendar") { value in
-                return value.isEmpty ? .invalid(errorMessage: "Last name should be non-empty") : .valid
+                if value.isEmpty {
+                    return .invalid(errorMessage: "Value should be non-empty")
+                } else if value.count <= 3 {
+                    return .invalid(errorMessage: "Enter value greater than 3 charaters")
+                } else if value.count > 20 {
+                    return .invalid(errorMessage: "Enter value lower than 20 charaters")
+                }
+                return .valid
             }
         
         Form {
